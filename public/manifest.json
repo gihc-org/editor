@@ -1,0 +1,11 @@
+{
+  "name": "Rust Editor",
+  "short_name": "RustEdit",
+  "description": "CodeMirror-baseret Rust-editor til Termux",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#282c34",
+  "theme_color": "#21252b",
+  "icons": []
+}

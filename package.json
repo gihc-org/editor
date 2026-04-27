@@ -1,0 +1,18 @@
+{
+  "name": "termux-editor",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "esbuild src/editor.js --bundle --outfile=public/editor.bundle.js",
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "@codemirror/lang-rust": "^6.0.1",
+    "@codemirror/theme-one-dark": "^6.1.2",
+    "codemirror": "^6.0.1",
+    "express": "^4.19.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.21.0"
+  }
+}
