@@ -46,6 +46,7 @@ Extensions i `initEditor()`: `basicSetup`, `rust()`, `oneDark`, `EditorView.line
 
 ## Planlagte næste skridt
 
+- **PWA:** Gøre appen fuldt installerbar som PWA — kræver en service worker (`public/sw.js`) der cacher app-shell så den virker uden at serveren er startet. `manifest.json` og PWA-metatags er allerede på plads.
 - LSP-integration med `rust-analyzer` (kører allerede i Termux) via WebSocket
 - Faner til flere åbne filer
 - Terminal-panel (spawn shell i Termux via child_process)
