@@ -8,7 +8,7 @@ const BASE_DIR = path.resolve(process.env.EDITOR_ROOT || os.homedir());
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json({ limit: '10mb' }));
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 function safePath(requestedPath) {
   const resolved = path.resolve(BASE_DIR, requestedPath.replace(/^\/+/, ''));
