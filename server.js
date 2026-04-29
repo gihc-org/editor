@@ -56,7 +56,17 @@ app.post('/api/file', (req, res) => {
   }
 });
 
-app.listen(PORT, '127.0.0.1', () => {
-  console.log(`Editor kører på  http://localhost:${PORT}`);
-  console.log(`Rodmappe:        ${BASE_DIR}`);
-});
+function listen(port) {
+  const server = app.listen(port, '127.0.0.1');
+  server.on('listening', () => {
+    const { port: p } = server.address();
+    console.log(`Editor kører på  http://localhost:${p}`);
+    console.log(`Rodmappe:        ${BASE_DIR}`);
+  });
+  server.on('error', err => {
+    if (err.code === 'EADDRINUSE') listen(port + 1);
+    else throw err;
+  });
+}
+
+listen(PORT);
