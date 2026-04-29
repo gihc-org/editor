@@ -1,5 +1,6 @@
 import { EditorView, basicSetup } from 'codemirror';
 import { rust } from '@codemirror/lang-rust';
+import { markdown } from '@codemirror/lang-markdown';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { EditorState } from '@codemirror/state';
 import { indentWithTab } from '@codemirror/commands';
@@ -9,7 +10,13 @@ let currentFile = null;
 let currentDir = '';
 let editor = null;
 
-function initEditor(doc = '') {
+function getLang(filePath) {
+  const ext = filePath.split('.').pop().toLowerCase();
+  if (ext === 'md' || ext === 'markdown') return markdown();
+  return rust();
+}
+
+function initEditor(doc = '', lang = rust()) {
   const container = document.getElementById('editor');
   if (editor) editor.destroy();
   editor = new EditorView({
@@ -17,7 +24,7 @@ function initEditor(doc = '') {
       doc,
       extensions: [
         basicSetup,
-        rust(),
+        lang,
         oneDark,
         EditorView.lineWrapping,
         keymap.of([indentWithTab]),
@@ -35,7 +42,7 @@ async function loadFile(filePath) {
     currentFile = filePath;
     document.getElementById('filename').textContent = filePath.split('/').pop();
     document.title = filePath.split('/').pop() + ' — Rust Editor';
-    initEditor(content);
+    initEditor(content, getLang(filePath));
     closeFileTree();
   } catch (err) {
     showToast(err.message, 'error');

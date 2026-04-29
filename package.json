@@ -10,6 +10,7 @@
     "dev": "node server.js"
   },
   "dependencies": {
+    "@codemirror/lang-markdown": "^6.5.0",
     "@codemirror/lang-rust": "^6.0.1",
     "@codemirror/theme-one-dark": "^6.1.2",
     "codemirror": "^6.0.1",
