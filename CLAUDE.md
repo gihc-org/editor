@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Kontekst
 
-En CodeMirror 6-baseret Rust-editor designet til at køre som en lokal webserver i **Termux på Android**. Brugeren tilgår editoren via Chrome på `localhost:3000` og kan tilføje den til startskærmen som en PWA. Primær motivation: copy/paste i vim/nano i Termux er besværligt — browseren håndterer det naturligt.
+**Zero Editor** — en CodeMirror 6-baseret editor designet til at køre som en lokal webserver i **Termux på Android**. Understøtter Rust og Markdown. Brugeren tilgår editoren via Chrome på `localhost:3000` og kan tilføje den til startskærmen som en PWA. Primær motivation: copy/paste i vim/nano i Termux er besværligt — browseren håndterer det naturligt.
 
 ## Kommandoer
 
@@ -39,11 +39,12 @@ Indgangspunktet er `bin/editor.js`, som sætter `EDITOR_ROOT` til `process.cwd()
 
 ```
 server.js          Node.js/Express — filsystem-API + statiske filer
+bin/editor.js      CLI-indgangspunkt til npm link (zero-editor)
 src/editor.js      CodeMirror-kildekode (ES-moduler, bundlet med esbuild)
 public/
   index.html       HTML-shell med PWA-metatags
   style.css        Mobil-first mørkt tema (matcher oneDark)
-  manifest.json    PWA-manifest
+  manifest.json    PWA-manifest (name: "Zero Editor")
   editor.bundle.js Genereret — commit ikke denne
 ```
 
@@ -53,13 +54,14 @@ public/
 
 **Fil-paths:** Alle stier i API'et er relative til `BASE_DIR`. Klienten sender og modtager relative stier; `server.js` resolver dem til absolutte stier internt.
 
+**Port-håndtering:** Serveren finder automatisk en ledig port fra `PORT` (default 3000) og opefter ved EADDRINUSE — flere instanser kan køre samtidigt.
+
 ## CodeMirror-opsætning
 
-Extensions i `initEditor()`: `basicSetup`, `rust()`, `oneDark`, `EditorView.lineWrapping`, `indentWithTab`. Ved skift af fil ødelægges og genoprettes `EditorView`-instansen frem for at opdatere state.
+Sprog vælges automatisk i `getLang()` ud fra filendelse: `.rs` → `rust()`, `.md`/`.markdown` → `markdown()`. Én `EditorView`-instans genbruges; faner skiftes med `editor.setState()` og gemmer `EditorState` per tab.
 
 ## Planlagte næste skridt
 
 - **PWA:** Gøre appen fuldt installerbar som PWA — kræver en service worker (`public/sw.js`) der cacher app-shell så den virker uden at serveren er startet. `manifest.json` og PWA-metatags er allerede på plads.
 - LSP-integration med `rust-analyzer` (kører allerede i Termux) via WebSocket
-- Faner til flere åbne filer
 - Terminal-panel (spawn shell i Termux via child_process)
