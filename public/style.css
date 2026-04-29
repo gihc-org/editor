@@ -20,16 +20,55 @@ html, body {
   height: 100dvh;
 }
 
-#topbar {
+#tabbar {
   flex-shrink: 0;
   background: #21252b;
-  padding: 10px 16px;
-  font-size: 13px;
-  color: #abb2bf;
   border-bottom: 1px solid #181a1f;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+#tabbar::-webkit-scrollbar {
+  display: none;
+}
+
+#tab-list {
+  display: flex;
+  min-width: max-content;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px 8px 14px;
+  border-right: 1px solid #181a1f;
+  cursor: pointer;
+  font-size: 13px;
+  color: #5c6370;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  user-select: none;
+}
+
+.tab.active {
+  background: #282c34;
+  color: #abb2bf;
+  border-bottom: 2px solid #528bff;
+}
+
+.tab-close {
+  background: none;
+  border: none;
+  color: #5c6370;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 2px;
+}
+
+.tab-close:active {
+  color: #abb2bf;
 }
 
 #editor {
