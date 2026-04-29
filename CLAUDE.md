@@ -29,8 +29,8 @@ PORT=8080 npm start
 npm link
 
 # Herefter fra en hvilken som helst mappe:
-rust-editor              # åbner editoren med den aktuelle mappe som rod
-rust-editor /sti/til/mappe   # eller angiv en sti direkte
+zero-editor              # åbner editoren med den aktuelle mappe som rod
+zero-editor /sti/til/mappe   # eller angiv en sti direkte
 ```
 
 Indgangspunktet er `bin/editor.js`, som sætter `EDITOR_ROOT` til `process.cwd()` (eller argv[2]) og starter `server.js`.

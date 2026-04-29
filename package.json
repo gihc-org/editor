@@ -2,7 +2,7 @@
   "name": "termux-editor",
   "version": "0.1.0",
   "bin": {
-    "rust-editor": "./bin/editor.js"
+    "zero-editor": "./bin/editor.js"
   },
   "scripts": {
     "build": "esbuild src/editor.js --bundle --outfile=public/editor.bundle.js",
